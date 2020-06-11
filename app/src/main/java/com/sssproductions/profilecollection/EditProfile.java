@@ -1,11 +1,15 @@
 package com.sssproductions.profilecollection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +19,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.sssproductions.profilecollection.Models.ProfileModel;
 
 import java.util.HashMap;
@@ -29,10 +37,14 @@ public class EditProfile extends AppCompatActivity {
 
     private EditText name, age, mobile, city, occupation, gotra, dob, birth;
     private ImageView profile, backBtn;
-    private HashMap hashMap;
     private Button addBtn;
     private FirebaseUser user;
     private DatabaseReference databaseReference;
+    private StorageReference Folder;
+    private static final int IMAGE_BACK = 12;
+    private String img_url;
+    private Uri ImageData;
+    private ProfileModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +53,7 @@ public class EditProfile extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("data").child(user.getUid());
+        Folder = FirebaseStorage.getInstance().getReference().child(user.getUid());
 
         //bind layout
         addBtn = findViewById(R.id.addBtn);
@@ -57,6 +70,29 @@ public class EditProfile extends AppCompatActivity {
 
         sendData();
         backClicked();
+        ImageUpload();
+    }
+
+    private void ImageUpload(){
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent,IMAGE_BACK);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_BACK){
+            if (resultCode == RESULT_OK){
+                ImageData = data.getData();
+            }
+        }
     }
 
     private void backClicked(){
@@ -68,7 +104,6 @@ public class EditProfile extends AppCompatActivity {
         });
     }
     private void sendData() {
-
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,11 +123,22 @@ public class EditProfile extends AppCompatActivity {
                      TextUtils.isEmpty(cityStr) &&
                      TextUtils.isEmpty(occupationStr) &&
                      TextUtils.isEmpty(gotraStr) &&
-                     TextUtils.isEmpty(birthStr) ){
+                     TextUtils.isEmpty(birthStr) &&
+                     ImageData == null){
 
                     Toast.makeText(EditProfile.this, "Please Fill all the Details with Image to upload", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    ProfileModel model = new ProfileModel();
+
+                    //Start Loading Box
+                    final ProgressDialog pDialog = new ProgressDialog(EditProfile.this);
+                    pDialog.setMessage("Please Wait ...");
+                    pDialog.setIndeterminate(true);
+                    pDialog.setCancelable(false);
+                    pDialog.show();
+
+                    //create model object to store in database
+                    model = new ProfileModel();
                     model.setName(nameStr);
                     model.setAge(AgeStr);
                     model.setNumber(mobStr);
@@ -100,22 +146,41 @@ public class EditProfile extends AppCompatActivity {
                     model.setOccupation(occupationStr);
                     model.setGotra(gotraStr);
                     model.setBirthPlace(birthStr);
-                    model.setImg_url("https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1562018435l/50802861._SX0_SY0_.jpg");
                     model.setDob("13-09-1774");
 
-                    //start Sending Data
-                    final ProgressDialog pDialog = new ProgressDialog(EditProfile.this);
-                    pDialog.setMessage("Loading ...");
-                    pDialog.setIndeterminate(true);
-                    pDialog.setCancelable(false);
-                    pDialog.show();
-                    databaseReference.child(model.getNumber()).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    //storage ref for image to upload
+                    final StorageReference ImageName = Folder.child(model.getNumber()).child("image"+ImageData.getLastPathSegment());
+
+                    //Image uploading
+                    ImageName.putFile(ImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(EditProfile.this, "Profile Saved", Toast.LENGTH_SHORT).show();
-                            pDialog.dismiss();
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Toast.makeText(EditProfile.this, "UPLOADED", Toast.LENGTH_SHORT).show();
+
+                            ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    img_url = String.valueOf(uri);
+                                    model.setImg_url(img_url);
+
+                                    //Start Sending Data
+
+                                    databaseReference.child(model.getNumber()).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(EditProfile.this, "Profile Saved", Toast.LENGTH_SHORT).show();
+                                            pDialog.dismiss();
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
+
                         }
                     });
+
+
                 }
             }
         });
