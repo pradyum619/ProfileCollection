@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:id="@+id/homegrp">
+        <item
+            android:id="@+id/home_itm"
+            android:title="@string/home" />
+    </group>
+    <group android:id="@+id/aboutUsgrp">
+        <item
+            android:id="@+id/abtus_itm"
+            android:title="@string/about_us" />
+    </group>
+    <group android:id="@+id/myProfilegrp">
+        <item
+            android:id="@+id/myprofile_itm"
+            android:title="@string/profile" />
+    </group>
+    <group android:id="@+id/searchgrp">
+        <item
+            android:id="@+id/search_itm"
+            android:title="@string/search" />
+    </group>
+    <group android:id="@+id/Logoutgrp">
+        <item
+            android:id="@+id/logout_itm"
+            android:title="@string/logout" />
+    </group>
+
+
+</menu>

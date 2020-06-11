@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfile">
+
+    <LinearLayout
+        android:id="@+id/ll_bg_addProfile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:background="@drawable/barlayout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_img_addProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_action_back_arrow"
+            android:backgroundTint="#000000" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="@dimen/_9sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_addProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/userlogo" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/data_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:padding="@dimen/_4sdp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_above="@+id/add_btn_card"
+        app:cardElevation="@dimen/_8sdp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/ralewaybold"
+                    android:text="Add Profile"
+                    android:textSize="@dimen/headerTextSize" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/nameImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/userlogo" />
+
+                    <EditText
+                        android:id="@+id/name_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/nameImageView_addProfile"
+                        android:hint="NAME"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/mobileImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_mobile" />
+
+                    <EditText
+                        android:id="@+id/mob_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/mobileImageView_addProfile"
+                        android:hint="Mobile Number"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/emailImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_email" />
+
+                    <EditText
+                        android:id="@+id/age_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/emailImageView_addProfile"
+                        android:hint="AGE"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/addressImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_address" />
+
+                    <EditText
+                        android:id="@+id/city_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/addressImageView_addProfile"
+                        android:hint="City"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/birthImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/ic_address" />
+
+                    <EditText
+                        android:id="@+id/birth_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/birthImageView_addProfile"
+                        android:hint="Birth Place"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/dobImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/bwcalender" />
+
+                    <EditText
+                        android:id="@+id/dob_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/dobImageView_addProfile"
+                        android:hint="Date of Birth"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/gotraImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/gotralogo" />
+
+                    <EditText
+                        android:id="@+id/gotra_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/gotraImageView_addProfile"
+                        android:hint="Gotra"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+
+                    <ImageView
+                        android:id="@+id/occupationImageView_addProfile"
+                        style="@style/profileDetailsImage"
+                        android:src="@drawable/occupationlogo" />
+
+                    <EditText
+                        android:id="@+id/occupation_tv_addProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_toRightOf="@id/occupationImageView_addProfile"
+                        android:hint="Occupation"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/add_btn_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="@dimen/_9sdp">
+
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:ems="12"
+            android:fontFamily="@font/ralewaybold"
+            android:text="Add to Data"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_16ssp" />
+
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

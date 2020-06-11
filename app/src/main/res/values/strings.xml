@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Profile Collection</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="welcome_to_app">welcome to official app</string>
+    <string name="welcome">Welcome</string>
+    <string name="load_all_your_profiles">Load all your profiles</string>
+    <string name="profile">Profile</string>
+    <string name="have_your_own_collection">Have your own collection</string>
+    <string name="keep_an_eye_on_your_collection">Keep an eye on your Collection</string>
+    <string name="keep_exploring">Keep Exploring</string>
+    <string name="explore">Explore</string>
+    <string name="enjoy">Enjoy</string>
+    <string name="validate">Validate</string>
+    <string name="have_fun">Have Fun</string>
+    <string name="search">Search</string>
+    <string name="logout">Logout</string>
+    <string name="about_us">About Us</string>
+    <string name="home">Home</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+</resources>
